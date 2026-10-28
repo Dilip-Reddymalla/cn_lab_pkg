@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cn-lab"
+version = "0.1.0"
+description = "Computer Networks Lab Suite with real Client, Server, and C++ files"
+readme = "README.md"
+requires-python = ">=3.7"
+license = { text = "MIT" }
+authors = [
+    { name = "CN Lab Student" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: System :: Networking",
+]
+
+[project.scripts]
+cn-download = "cn_lab.downloader:main"
+cn-extract = "cn_lab.downloader:main"
+cn-client = "cn_lab.dummy_client:main"
+cn-server = "cn_lab.dummy_server:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cn_lab*"]
+
+[tool.setuptools.package-data]
+"cn_lab" = ["files/*"]
