@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cn-lab"
-version = "0.1.0"
+version = "0.1.1"
 description = "Computer Networks Lab Suite with real Client, Server, and C++ files"
 readme = "README.md"
 requires-python = ">=3.7"

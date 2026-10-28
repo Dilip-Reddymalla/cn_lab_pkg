@@ -11,12 +11,15 @@ def get_bundle_dir() -> Path:
     return Path(__file__).resolve().parent / "files"
 
 def list_files():
-    """List all bundled lab files."""
+    """List all bundled lab files, ignoring directories like __pycache__ and hidden files."""
     files_dir = get_bundle_dir()
     if not files_dir.exists():
         print(f"Error: Bundle directory {files_dir} not found.")
         return []
-    return sorted(os.listdir(files_dir))
+    return sorted([
+        f.name for f in files_dir.iterdir()
+        if f.is_file() and not f.name.startswith(".") and not f.name.endswith(".pyc")
+    ])
 
 def export_all_files(target_dir="."):
     """Copy all real client, server, and C++ lab files to the specified directory."""
@@ -29,8 +32,9 @@ def export_all_files(target_dir="."):
     for fname in files:
         src_path = bundle_dir / fname
         dst_path = dest / fname
-        shutil.copy2(src_path, dst_path)
-        print(f"  -> {fname}")
+        if src_path.is_file():
+            shutil.copy2(src_path, dst_path)
+            print(f"  -> {fname}")
     print(f"\nAll files successfully saved in: {dest}")
 
 def main():
@@ -40,4 +44,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
